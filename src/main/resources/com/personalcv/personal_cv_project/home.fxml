@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="577.0" prefWidth="902.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.personalcv.personal_cv_project.Home">
+   <children>
+      <TextField fx:id="fullNameInput" layoutX="25.0" layoutY="80.0" prefHeight="20.0" prefWidth="200.0" promptText="İsim Soyisim" />
+      <TextArea fx:id="addressInput" layoutX="25.0" layoutY="300.0" prefHeight="110.0" prefWidth="200.0" promptText="Adres" />
+      <Label layoutX="25.0" layoutY="50.0" prefHeight="25.0" prefWidth="97.0" text="Kişisel Bilgiler" />
+      <TextField fx:id="zipCodeInput" layoutX="25.0" layoutY="211.0" prefHeight="20.0" prefWidth="200.0" promptText="Posta Kodu" />
+      <TextField fx:id="birthdateInput" layoutX="25.0" layoutY="110.0" prefHeight="20.0" prefWidth="200.0" promptText="Doğum Tarihi" />
+      <TextField fx:id="mailInput" layoutX="25.0" layoutY="240.0" prefHeight="20.0" prefWidth="200.0" promptText="E-posta adresi" />
+      <TextField fx:id="phoneNumberInput" layoutX="25.0" layoutY="270.0" prefHeight="20.0" prefWidth="200.0" promptText="İletişim numarası" />
+      <Label layoutX="370.0" layoutY="53.0" prefHeight="25.0" prefWidth="97.0" text="Yetenekler" />
+      <Label layoutX="367.0" layoutY="323.0" prefHeight="25.0" prefWidth="97.0" text="İş Tecrübesi" />
+      <TextField fx:id="companyNameInput" layoutX="364.0" layoutY="354.0" prefHeight="20.0" prefWidth="190.0" promptText="Şirket Adı" />
+      <TextField fx:id="jobTitleInput" layoutX="364.0" layoutY="384.0" prefHeight="20.0" prefWidth="190.0" promptText="Unvan" />
+      <TextField fx:id="experienceInput" layoutX="364.0" layoutY="414.0" prefHeight="20.0" prefWidth="190.0" promptText="Tecrübe Süresi (yıl)" />
+      <Button fx:id="saveButton" layoutX="670.0" layoutY="325.0" mnemonicParsing="false" onAction="#saveFunction" prefHeight="30.0" prefWidth="97.0" text="Kaydet" />
+      <Label layoutX="670.0" layoutY="49.0" text="Eğitim" />
+      <TextField fx:id="schoolNameInput1" layoutX="670.0" layoutY="79.0" prefHeight="20.0" prefWidth="190.0" promptText="Okul Adı" />
+      <TextField fx:id="schoolPeriodInput1" layoutX="670.0" layoutY="109.0" prefHeight="20.0" prefWidth="190.0" promptText="Başlama - Bitirme Tarihi" />
+      <TextField fx:id="schoolNameInput2" layoutX="670.0" layoutY="162.0" prefHeight="20.0" prefWidth="190.0" promptText="Okul Adı" />
+      <TextField fx:id="schoolPeriodInput2" layoutX="670.0" layoutY="192.0" prefHeight="20.0" prefWidth="190.0" promptText="Başlama - Bitirme Tarihi" />
+      <TextField fx:id="schoolNameInput3" layoutX="670.0" layoutY="237.0" prefHeight="20.0" prefWidth="190.0" promptText="Okul Adı" />
+      <TextField fx:id="schoolPeriodInput3" layoutX="670.0" layoutY="267.0" prefHeight="20.0" prefWidth="190.0" promptText="Başlama - Bitirme Tarihi" />
+      <ListView fx:id="skillsListView" editable="true" layoutX="370.0" layoutY="83.0" prefHeight="140.0" prefWidth="190.0" />
+      <TextField fx:id="skilssInput" layoutX="370.0" layoutY="236.0" prefHeight="24.0" prefWidth="190.0" />
+      <Button fx:id="addSkillButton" layoutX="370.0" layoutY="267.0" mnemonicParsing="false" onAction="#onAddSkill" prefWidth="90.0" text="Ekle" />
+      <Button fx:id="removeSkillButton" layoutX="472.0" layoutY="267.0" mnemonicParsing="false" onAction="#removeSkill" prefWidth="90.0" text="Çıkar" />
+      <RadioButton fx:id="maleRadioButton" layoutX="24.0" layoutY="150.0" mnemonicParsing="false" onAction="#onMaleRadioSelected" text="Erkek" />
+      <RadioButton fx:id="femaleRadioButton" layoutX="119.0" layoutY="150.0" mnemonicParsing="false" onAction="#onFemaleRadioSelected" text="Kadın" />
+   </children>
+</AnchorPane>
