@@ -45,13 +45,20 @@ public class Firebase {
         ApiFuture<WriteResult> result = docRef.set(data);
     }
 
-    public void createData(Map<String, Object> dataMap) {
+    public void createResume(Map<String, Object> dataMap) {
         Firestore db = FirestoreClient.getFirestore();
         DocumentReference docRef = db.collection("resumes").document();
         ApiFuture<WriteResult> result = docRef.create(dataMap);
     }
 
-    public void retrieveData() throws ExecutionException, InterruptedException, IOException {
+    public void updateData(Map<String, Object> dataMap, String resumeID) {
+        System.out.println(dataMap);
+        Firestore db = FirestoreClient.getFirestore();
+        DocumentReference docRef = db.collection("resumes").document(resumeID);
+        ApiFuture<WriteResult> result = docRef.set(dataMap);
+    }
+
+    public JsonNode retrieveData() throws ExecutionException, InterruptedException, IOException {
         Firestore db = FirestoreClient.getFirestore();
         Map<String, Object> docsDataFields = new HashMap<>();
         ApiFuture<QuerySnapshot> future = db.collection("resumes").get();
@@ -65,14 +72,14 @@ public class Firebase {
         });
         skills.getSkills().forEach(System.out::println);
 */
-        final String[] dcocKey = {null};
+        final String[] docKey = {null};
         Map<Resume, Object> resumes = new HashMap<>();
         for (QueryDocumentSnapshot document : documents) {
             docsDataFields.put(document.getId(), document.getData());
         }
-        docsDataFields.forEach((key, value) -> dcocKey[0] = key);
-        JsonNode jsonNode = new Utility().mapObjectToJson((Map) docsDataFields.get(dcocKey[0]));
-        System.out.println("merhaba " + jsonNode.get(Params.personalInformations).get(Params.fullname));
+        docsDataFields.forEach((key, value) -> docKey[0] = key);
+        Params.currentPersonID = docKey[0];
+        return new Utility().mapObjectToJson((Map) docsDataFields.get(docKey[0]));
 
 
     }

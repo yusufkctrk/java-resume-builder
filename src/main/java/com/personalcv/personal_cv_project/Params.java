@@ -1,6 +1,8 @@
 package com.personalcv.personal_cv_project;
 
 public class Params {
+    public static String currentPersonID = "";
+
     public static String fullname = "fullname";
     public static String birthdate = "birthdate";
     public static String address = "address";
@@ -8,8 +10,8 @@ public class Params {
     public static String mail = "mail";
     public static String phoneNumber = "phoneNumber";
     public static String zipCode = "zipCode";
-    public static String elementary_school = "elementary_school";
-    public static String high_school = "high_school";
+    public static String elementary_school = "elementarySchool";
+    public static String high_school = "highSchool";
     public static String license = "license";
     public static String companyName = "companyName";
     public static String jobTitle = "jobTitle";
@@ -23,6 +25,11 @@ public class Params {
     public static String hobbiesInformation = "hobbiesInformation";
     public static String schoolName = "name";
     public static String schoolPeriod = "period";
+    public static String male = "male";
+    public static String female = "female";
 
+
+    public static String updateResume = "updateResume";
+    public static String createNewResume = "createNewResume";
 
 }

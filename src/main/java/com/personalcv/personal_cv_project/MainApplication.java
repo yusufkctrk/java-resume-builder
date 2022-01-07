@@ -9,19 +9,27 @@ import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 public class MainApplication extends Application {
+    Firebase firebase = null;
+
+
+    public MainApplication() throws IOException, ExecutionException, InterruptedException {
+        firebase = new Firebase();
+        firebase.initialize();
+
+
+    }
+
     @Override
-    public void start(Stage stage) throws IOException, ExecutionException, InterruptedException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("home.fxml"));
+    public void start(Stage stage) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("createResume.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1200, 768);
-        scene.getStylesheets().add("home.css");
+        scene.getStylesheets().add("application.css");
         stage.setTitle("Cv Oluşturucu");
         stage.setScene(scene);
-
         stage.show();
-        Firebase firebase = new Firebase();
-        firebase.initialize();
-        firebase.retrieveData();
+
     }
+
 
     public static void main(String[] args) {
         launch();

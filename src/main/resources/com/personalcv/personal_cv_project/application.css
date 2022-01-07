@@ -112,6 +112,7 @@
     -fx-background-color: transparent;
     -fx-border-color: #6b55ed;
     -fx-border-radius: 16px;
+    -fx-text-fill: #6b55ed;
 }
 
 .secondaryButton:hover {
@@ -190,4 +191,14 @@
 .sidebar-selectedButton {
     -fx-background-color: white;
     -fx-background-radius: 16px;
+}
+
+.sidebar-label-nameHeader {
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-family: Poppins;
+}
+
+.sidebar-divider {
+    -fx-background-color: linear-gradient(to right, #fafafa, transparent);
 }
