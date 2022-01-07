@@ -1,6 +1,6 @@
 package com.personalcv.personal_cv_project;
 
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
 
 public class Skills {
@@ -22,7 +22,7 @@ public class Skills {
     @Override
     public String toString() {
         System.out.println("Skills:");
-        skills.forEach((item) -> System.out.println(item));
+        skills.forEach(System.out::println);
         return "";
     }
 

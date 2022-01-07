@@ -12,6 +12,10 @@ public class Home {
     Education education;
     PersonalInformation personalInformation;
     Company company;
+    Hobbies hobbies;
+
+    @FXML
+    private Button addHobbyButton;
 
     @FXML
     private Button addSkillButton;
@@ -35,6 +39,12 @@ public class Home {
     private TextField fullNameInput;
 
     @FXML
+    private ListView<String> hobbiesListView;
+
+    @FXML
+    private TextField hobbyInput;
+
+    @FXML
     private TextField jobTitleInput;
 
     @FXML
@@ -45,6 +55,9 @@ public class Home {
 
     @FXML
     private TextField phoneNumberInput;
+
+    @FXML
+    private Button removeHobbyButton;
 
     @FXML
     private Button removeSkillButton;
@@ -71,26 +84,46 @@ public class Home {
     private TextField schoolPeriodInput3;
 
     @FXML
-    private ListView<String> skillsListView;
+    private TextField skillsInput;
 
     @FXML
-    private TextField skilssInput;
+    private ListView<String> skillsListView;
 
     @FXML
     private TextField zipCodeInput;
 
     @FXML
-    void onAddSkill(ActionEvent event) {
-        if (skilssInput.getText() != "") {
-            skillsListView.getItems().add(skilssInput.getText());
+    void onAddHobby(ActionEvent event) {
+        if (hobbyInput.getText() != "") {
+            hobbiesListView.getItems().add(hobbyInput.getText());
         }
 
-        skilssInput.setText("");
-        skilssInput.requestFocus();
+        hobbyInput.setText("");
+        hobbyInput.requestFocus();
     }
 
     @FXML
-    void removeSkill(ActionEvent event) {
+    void onRemoveHobby(ActionEvent event) {
+        try {
+            int itemIndex = hobbiesListView.getSelectionModel().getSelectedIndex();
+            hobbiesListView.getItems().remove(itemIndex);
+        } catch (IndexOutOfBoundsException err) {
+            System.out.println(err);
+        }
+    }
+
+    @FXML
+    void onAddSkill(ActionEvent event) {
+        if (skillsInput.getText() != "") {
+            skillsListView.getItems().add(skillsInput.getText());
+        }
+
+        skillsInput.setText("");
+        skillsInput.requestFocus();
+    }
+
+    @FXML
+    void onRemoveSkill(ActionEvent event) {
         try {
             int itemIndex = skillsListView.getSelectionModel().getSelectedIndex();
             skillsListView.getItems().remove(itemIndex);
@@ -107,18 +140,14 @@ public class Home {
         for (int i = 0; i < skillsListView.getItems().size(); i++) {
             skills.addSkill(skillsListView.getItems().get(i));
         }
+        hobbies = new Hobbies();
+        for (int i = 0; i < hobbiesListView.getItems().size(); i++) {
+            hobbies.addHobby(hobbiesListView.getItems().get(i));
+        }
         personalInformation = new PersonalInformation(fullNameInput.getText(), addressInput.getText(), zipCodeInput.getText(), birthdateInput.getText(), mailInput.getText(), phoneNumberInput.getText(), maleRadioButton.isSelected() ? "erkek" : "kadın");
         company = new Company(companyNameInput.getText(), jobTitleInput.getText(), experienceInput.getText());
-
         Resume resume = new Resume();
-        resume.createResume(personalInformation, education, company, skills);
-
-        System.out.println(education);
-        System.out.println(skills);
-        System.out.println(personalInformation);
-        System.out.println(company);
-
-
+        resume.createResume(personalInformation, education, company, skills,hobbies);
     }
 
     @FXML

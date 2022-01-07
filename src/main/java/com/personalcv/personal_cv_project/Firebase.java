@@ -1,6 +1,7 @@
 package com.personalcv.personal_cv_project;
 
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.*;
@@ -10,7 +11,6 @@ import com.google.firebase.cloud.FirestoreClient;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,8 +21,8 @@ public class Firebase {
 
     }
 
-    public void initialize() throws IOException {
 
+    public void initialize() throws IOException {
         try {
             FileInputStream serviceAccount =
                     new FileInputStream("./serviceAccount.json");
@@ -37,20 +37,11 @@ public class Firebase {
         } catch (Exception err) {
             System.out.println(err);
         }
-
     }
 
-    public void addData(String documentName) {
+    public void addDataToDocument(String documentName, Map<String, Object> data) {
         Firestore db = FirestoreClient.getFirestore();
         DocumentReference docRef = db.collection("resumes").document(documentName);
-        Map<String, Object> data = new HashMap<>();
-        Map<String, Object> mapH = new HashMap<>();
-        mapH.put("yaş", 12);
-        mapH.put("isim", "Yusuf");
-        data.put("first", "Ada");
-        data.put("last", "Lovelace");
-        data.put("born", 1811);
-        data.put("personal", mapH);
         ApiFuture<WriteResult> result = docRef.set(data);
     }
 
@@ -60,7 +51,7 @@ public class Firebase {
         ApiFuture<WriteResult> result = docRef.create(dataMap);
     }
 
-    public void retrieveData() throws ExecutionException, InterruptedException {
+    public void retrieveData() throws ExecutionException, InterruptedException, IOException {
         Firestore db = FirestoreClient.getFirestore();
         Map<String, Object> docsDataFields = new HashMap<>();
         ApiFuture<QuerySnapshot> future = db.collection("resumes").get();
@@ -74,17 +65,15 @@ public class Firebase {
         });
         skills.getSkills().forEach(System.out::println);
 */
+        final String[] dcocKey = {null};
         Map<Resume, Object> resumes = new HashMap<>();
-
         for (QueryDocumentSnapshot document : documents) {
             docsDataFields.put(document.getId(), document.getData());
         }
-        final ArrayList<String>[] skillsArray = new ArrayList[]{new ArrayList<>()};
-        docsDataFields.forEach((key, value) -> {
-            System.out.println(key + ": " + value);
-            skillsArray[0] = (ArrayList<String>) ((Map) ((Map) docsDataFields.get(key)).get("skillsInformation")).get("skills");
-        });
-        skillsArray[0].forEach(System.out::println);
+        docsDataFields.forEach((key, value) -> dcocKey[0] = key);
+        JsonNode jsonNode = new Utility().mapObjectToJson((Map) docsDataFields.get(dcocKey[0]));
+        System.out.println("merhaba " + jsonNode.get(Params.personalInformations).get(Params.fullname));
+
 
     }
 }

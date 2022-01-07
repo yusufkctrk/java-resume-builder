@@ -12,9 +12,11 @@ public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException, ExecutionException, InterruptedException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("home.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 902, 577);
+        Scene scene = new Scene(fxmlLoader.load(), 1200, 768);
+        scene.getStylesheets().add("home.css");
         stage.setTitle("Cv Oluşturucu");
         stage.setScene(scene);
+
         stage.show();
         Firebase firebase = new Firebase();
         firebase.initialize();
