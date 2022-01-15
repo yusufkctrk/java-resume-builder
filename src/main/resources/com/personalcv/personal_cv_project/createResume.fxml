@@ -267,7 +267,7 @@
                         <Font name="Poppins Regular" size="13.0" />
                     </font>
                 </Label>
-                <Label layoutX="16.0" layoutY="295.0" styleClass="subtitle" stylesheets="@application.css" text="Lisans" textAlignment="CENTER">
+                <Label layoutX="16.0" layoutY="295.0" styleClass="subtitle" stylesheets="@application.css" text="Lisans - Ön Lisans" textAlignment="CENTER">
                     <font>
                         <Font name="Poppins SemiBold" size="16.0" />
                     </font>

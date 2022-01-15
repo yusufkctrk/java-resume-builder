@@ -461,8 +461,17 @@ public class CreateResume {
                 for (int i = 0; i < Params.documentsID.size(); i++) {
                     fullname = jsonNode.get(Params.documentsID.get(i)).get(Params.personalInformations).get(Params.fullname).asText();
                     phoneNumber = jsonNode.get(Params.documentsID.get(i)).get(Params.personalInformations).get(Params.phoneNumber).asText();
-                    companyName = jsonNode.get(Params.documentsID.get(i)).get(Params.companyInformations).get(Params.companyName).asText();
-                    usersListView.getItems().add(fullname + "                 " + companyName + "                       " + phoneNumber);
+                    StringBuilder listViewItemText = new StringBuilder();
+                    int gapSize = 50 - (fullname.length() + phoneNumber.length());
+
+                    System.out.println(gapSize);
+                    listViewItemText.append(fullname);
+                    for (int j = 0; j < gapSize; j++) {
+                        listViewItemText.append(" ");
+                    }
+                    listViewItemText.append(phoneNumber);
+                    System.out.println(listViewItemText.length());
+                    usersListView.getItems().add(listViewItemText.toString());
                 }
             } catch (NullPointerException e) {
                 System.out.println("An error occured while retrieving Users List. The error is :" + e);
