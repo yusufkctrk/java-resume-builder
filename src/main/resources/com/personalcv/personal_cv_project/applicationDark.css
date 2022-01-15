@@ -1,29 +1,35 @@
 .input {
-    -fx-background-color: #fff;
-    -fx-background-radius: 16px;
-    -fx-text-fill: #6B55ED;
-    -fx-prompt-text-fill: #A49CC7;
+    -fx-background-color: transparent;
+    -fx-border-color: #757575;
+    -fx-border-radius: 16px;
+    -fx-text-fill: #fff;
+    -fx-prompt-text-fill: #dbd7d7;
 }
 
 .label {
-    -fx-text-fill: #6059ed;
+    -fx-text-fill: #c4c4c4;
 }
 
 .title {
-    -fx-text-fill: #25167A;
+    -fx-text-fill: #fff;
     -fx-font-weight: 500;
     -fx-font-size: 20px;
 }
 
 .subtitle {
-    -fx-text-fill: #3C27B2;
+    -fx-text-fill: #fafafa;
     -fx-font-weight: 400;
     -fx-font-size: 18px;
 }
 
+.radio-button {
+    -fx-text-fill: #fff;
+}
+
 .radio-button .radio {
+
     -fx-border-width: 1px;
-    -fx-border-color: #6B55ED;
+    -fx-border-color: #fff;
     -fx-background-color: white;
     -fx-background-image: null;
     -fx-border-radius: 15px;
@@ -62,45 +68,24 @@
 }
 
 .text-area {
-    -fx-background-color: #fff;
-    -fx-border-color: transparent;
-    -fx-effect: none;
-    -fx-background-insets: 0;
-    -fx-box-border: none;
-    -fx-focus-color: -fx-control-inner-background;
-    -fx-faint-focus-color: -fx-control-inner-background;
-    -fx-text-box-border: -fx-control-inner-background;
-    -fx-border-width: -1;
-    -fx-text-fill: #6B55ED;
+    -fx-prompt-text-fill: #dbd7d7;
+
+    -fx-text-fill: #fff;
+
+    -fx-background-color: #000;
+    -fx-border-color: #757575;
 }
 
-.text-area.content {
-    -fx-background-color: transparent, white, transparent, white;
+.text-area .content {
+    -fx-background-color: linear-gradient(to right, #2e2f39, #272934);
 
 
-}
-
-.text-area:focused .content {
-    -fx-background-color: transparent, white, transparent, white;
-}
-
-.text-area:focused {
-    -fx-highlight-fill: #7ecfff;
-
-    -fx-background-insets: 0;
-    -fx-background-color: transparent, white, transparent, white;
-    -fx-background-radius: 0, 0, 0, 0;
-
-    -fx-focus-color: -fx-control-inner-background;
-    -fx-faint-focus-color: -fx-control-inner-background;
-    -fx-text-box-border: -fx-control-inner-background;
-    -fx-border-width: -1;
 }
 
 .primaryButton {
-    -fx-background-color: #6b55ed;
+    -fx-background-color: #fff;
     -fx-background-radius: 16px;
-    -fx-text-fill: white;
+    -fx-text-fill: #6b55ed;
 }
 
 .primaryButton:hover {
@@ -111,9 +96,9 @@
 
 .secondaryButton {
     -fx-background-color: transparent;
-    -fx-border-color: #6b55ed;
+    -fx-border-color: #fff;
     -fx-border-radius: 16px;
-    -fx-text-fill: #6b55ed;
+    -fx-text-fill: #fff;
 }
 
 .secondaryButton:hover {
@@ -121,16 +106,23 @@
     -fx-scale-y: 0.9;
 }
 
-.list-cell {
-    -fx-background-color: white;
+.list-view {
+    -fx-border-color: #757575;
+    -fx-border-radius: 16px;
+}
 
+.list-cell {
+    -fx-background-color: transparent;
+
+    -fx-text-fill: white;
     -fx-label-padding: 4px;
 }
 
 .list-cell:filled:selected:focused, .list-cell:filled:selected {
     -fx-background-color: linear-gradient(to right, #6B55ED, #A49CC7);
+
     -fx-text-fill: white;
-    -fx-background-radius: 8px;
+    -fx-background-radius: 16px;
 
 }
 
@@ -172,9 +164,6 @@
     -fx-pref-height: 12;
 }
 
-.list-cell:even { /* <=== changed to even */
-    -fx-background-color: white;
-}
 
 .list-cell:filled:hover {
     -fx-background-color: #A49CC7;
@@ -205,11 +194,8 @@
 }
 
 .resumeButtonsBGWrapper {
-    -fx-background-color: linear-gradient(to right, #fafafa, transparent);
+    -fx-background-color: linear-gradient(to right, #191a2a, transparent);
     -fx-background-radius: 16px;
-}
 
-.light-themeButton {
-    -fx-background-color: white;
-    -fx-background-radius: 16px;
+
 }

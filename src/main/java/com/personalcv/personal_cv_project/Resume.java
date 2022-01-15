@@ -9,9 +9,21 @@ import java.util.Map;
 import java.util.Objects;
 
 public class Resume {
+
+    private static Resume resume;
+
+    public static Resume getInstance() {
+        if (resume == null) {
+            resume = new Resume();
+        }
+        return resume;
+    }
+
     public void createResume(PersonalInformation personalInformation, Education education, Company company, Skills skills, Hobbies hobbies, String processType) throws IOException {
-        Firebase firebase = new Firebase();
+        Firebase firebase = Firebase.getInstance();
         Map<String, Object> resumeMap = new HashMap<>();
+
+
 
         Map<String, Object> personalMap = new HashMap<>();
         Map<String, Object> educationMap = new HashMap<>();

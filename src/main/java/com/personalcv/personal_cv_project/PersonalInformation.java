@@ -1,6 +1,16 @@
 package com.personalcv.personal_cv_project;
 
 public class PersonalInformation {
+
+    private static PersonalInformation personalInstance;
+    public static PersonalInformation getInstance(
+    ) {
+        if (personalInstance == null) {
+            personalInstance = new PersonalInformation();
+        }
+        return personalInstance;
+    }
+
     private String fullname = "";
     private String address = "";
     private String zipCode = "";
@@ -9,15 +19,6 @@ public class PersonalInformation {
     private String phoneNumber = "";
     private String gender = "";
 
-    public PersonalInformation(String fullname, String address, String zipCode, String birthDate, String mail, String phoneNumber, String gender) {
-        this.fullname = fullname;
-        this.address = address;
-        this.zipCode = zipCode;
-        this.birthDate = birthDate;
-        this.mail = mail;
-        this.phoneNumber = phoneNumber;
-        this.gender = gender;
-    }
 
     public String getFullname() {
         return fullname;

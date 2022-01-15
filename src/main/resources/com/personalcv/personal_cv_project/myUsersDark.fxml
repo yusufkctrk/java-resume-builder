@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="768.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.personalcv.personal_cv_project.CreateResume">
+    <children>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" height="768.0" stroke="TRANSPARENT" strokeType="INSIDE" width="1200.0">
+            <fill>
+                <LinearGradient endX="1.0" endY="1.0">
+                    <stops>
+                        <Stop>
+                            <color>
+                                <Color red="0.9647058844566345" green="0.9725490212440491" blue="0.9960784316062927" />
+                            </color>
+                        </Stop>
+                        <Stop offset="0.007312614259597806">
+                            <color>
+                                <Color red="0.24122807383537292" green="0.24671052396297455" blue="0.2631579041481018" />
+                            </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                            <color>
+                                <Color red="0.00487329438328743" green="0.016585445031523705" blue="0.10526315867900848" />
+                            </color>
+                        </Stop>
+                    </stops>
+                </LinearGradient>
+            </fill>
+        </Rectangle>
+        <AnchorPane prefHeight="768.0" prefWidth="200.0">
+            <children>
+                <Rectangle arcHeight="5.0" arcWidth="5.0" height="768.0" stroke="TRANSPARENT" strokeType="INSIDE" width="200.0">
+                    <fill>
+                        <LinearGradient endX="1.0" endY="1.0">
+                            <stops>
+                                <Stop>
+                                    <color>
+                                        <Color red="0.41960784792900085" green="0.3333333432674408" blue="0.929411768913269" />
+                                    </color>
+                                </Stop>
+                                <Stop offset="0.007312614259597806">
+                                    <color>
+                                        <Color red="0.20639823377132416" green="0.1884746551513672" blue="0.34210526943206787" />
+                                    </color>
+                                </Stop>
+                                <Stop offset="1.0">
+                                    <color>
+                                        <Color red="0.036549706012010574" green="0.04788011685013771" blue="0.2631579041481018" />
+                                    </color>
+                                </Stop>
+                            </stops>
+                        </LinearGradient>
+                    </fill>
+                </Rectangle>
+                <Region layoutY="280.0" prefHeight="2.0" prefWidth="200.0" styleClass="sidebar-divider" stylesheets="@applicationDark.css" />
+                <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="25.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@assets/logo.png" />
+                    </image>
+                </ImageView>
+                <Button fx:id="createResumeButton" alignment="CENTER" layoutX="25.0" layoutY="320.0" mnemonicParsing="false" onAction="#onChangeToResume" prefHeight="35.0" prefWidth="150.0" styleClass="sidebar-button" stylesheets="@applicationDark.css" text="CV Oluştur" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Poppins Medium" size="16.0" />
+                    </font>
+                </Button>
+                <Label layoutX="54.0" layoutY="710.0" prefWidth="91.0" stylesheets="@applicationDark.css" text="cv builder v.1.0" textAlignment="CENTER" textFill="#6654ebb2">
+                    <font>
+                        <Font name="Poppins Light" size="13.0" />
+                    </font>
+                </Label>
+                <Label layoutX="47.0" layoutY="728.0" stylesheets="@applicationDark.css" text="Tüm Hakları Saklıdır ®" textAlignment="CENTER" textFill="#6654ebb2">
+                    <font>
+                        <Font name="Poppins Light" size="13.0" />
+                    </font>
+                </Label>
+                <Label fx:id="sidebarNameLabel" layoutX="16.0" layoutY="240.0" prefHeight="38.0" prefWidth="178.0" styleClass="sidebar-label-nameHeader" stylesheets="@applicationDark.css" text="John Doe">
+                    <font>
+                        <Font name="Poppins Regular" size="13.0" />
+                    </font>
+                </Label>
+                <Button fx:id="myUsersButton" alignment="CENTER" layoutX="25.0" layoutY="370.0" mnemonicParsing="false" onAction="#onChangeToUsers" prefHeight="35.0" prefWidth="150.0" styleClass="sidebar-selectedButton" stylesheets="@applicationDark.css" text="Kullanıcılarım" textAlignment="CENTER" textFill="#6b55ed">
+                    <font>
+                        <Font name="Poppins Medium" size="16.0" />
+                    </font>
+                </Button>
+                <Button fx:id="darkThemeButton" alignment="CENTER" layoutX="50.0" layoutY="530.0" mnemonicParsing="false" onAction="#onDarkThemeSelected" prefHeight="45.0" prefWidth="45.0" stylesheets="@application.css">
+                    <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@assets/dark.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <styleClass>
+                        <String fx:value="sidebar-button" />
+                        <String fx:value="light-themeButton" />
+                    </styleClass>
+                </Button>
+                <Button fx:id="lightThemeButton" alignment="CENTER" layoutX="105.0" layoutY="530.0" mnemonicParsing="false" onAction="#onLightThemeSelected" prefHeight="45.0" prefWidth="45.0" styleClass="sidebar-button" stylesheets="@application.css">
+                    <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@assets/light_white.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </children>
+        </AnchorPane>
+        <Region layoutY="510.0" prefHeight="2.0" prefWidth="200.0" styleClass="sidebar-divider" stylesheets="@application.css" />
+        <Label fx:id="sidebarNameLabel1" layoutX="16.0" layoutY="470.0" prefHeight="38.0" prefWidth="178.0" styleClass="sidebar-label-nameHeader" stylesheets="@application.css" text="Uygulama Teması">
+            <font>
+                <Font name="Poppins Regular" size="13.0" />
+            </font>
+        </Label>
+        <Region layoutY="690.0" prefHeight="2.0" prefWidth="200.0" styleClass="sidebar-divider" stylesheets="@application.css" />
+        <Label fx:id="sidebarNameLabel11" layoutX="16.0" layoutY="650.0" prefHeight="38.0" prefWidth="178.0" styleClass="sidebar-label-nameHeader" stylesheets="@application.css" text="Sürüm Bilgileri">
+            <font>
+                <Font name="Poppins Regular" size="13.0" />
+            </font>
+        </Label>
+      <ListView fx:id="usersListView" editable="true" layoutX="250.0" layoutY="151.0" prefHeight="300.0" prefWidth="415.0" styleClass="list-cell" stylesheets="@applicationDark.css" />
+      <Label layoutX="250.0" layoutY="60.0" prefHeight="24.0" prefWidth="195.0" styleClass="title" stylesheets="@applicationDark.css" text="Kayıtlı Kullanıcılar" textAlignment="CENTER">
+         <font>
+            <Font name="Poppins Regular" size="20.0" />
+         </font>
+      </Label>
+      <Button fx:id="showUserCVButton" alignment="CENTER" layoutX="315.0" layoutY="470.0" mnemonicParsing="false" onAction="#onShowUserCV" prefHeight="35.0" prefWidth="300.0" styleClass="primaryButton" stylesheets="@applicationDark.css" text="Kullanıcı Bilgilerini Göster" textAlignment="CENTER" textFill="#6b55ed">
+         <font>
+            <Font name="Poppins Medium" size="16.0" />
+         </font>
+      </Button>
+      <Label layoutX="255.0" layoutY="105.0" prefHeight="38.0" prefWidth="107.0" styleClass="subtitle" stylesheets="@applicationDark.css" text="İsim Soyisim">
+         <font>
+            <Font name="Poppins Regular" size="10.0" />
+         </font>
+      </Label>
+      <Label layoutX="400.0" layoutY="105.0" prefHeight="38.0" prefWidth="82.0" styleClass="subtitle" stylesheets="@applicationDark.css" text="Şirket Adı">
+         <font>
+            <Font name="Poppins Regular" size="10.0" />
+         </font>
+      </Label>
+      <Label layoutX="530.0" layoutY="105.0" prefHeight="38.0" prefWidth="156.0" styleClass="subtitle" stylesheets="@applicationDark.css" text="Telefon Numarası">
+         <font>
+            <Font name="Poppins Regular" size="10.0" />
+         </font>
+      </Label>
+    </children>
+</AnchorPane>

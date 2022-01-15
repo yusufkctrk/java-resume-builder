@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -304,12 +305,7 @@
                   <Image url="@assets/logo.png" />
                </image>
             </ImageView>
-                <Button alignment="CENTER" layoutX="25.0" layoutY="333.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" styleClass="sidebar-button" stylesheets="@application.css" text="Admin Paneli" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font name="Poppins Medium" size="16.0" />
-               </font>
-                </Button>
-            <Button alignment="CENTER" layoutX="25.0" layoutY="399.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" styleClass="sidebar-selectedButton" stylesheets="@application.css" text="CV Oluştur" textAlignment="CENTER" textFill="#6b55ed">
+            <Button fx:id="myUsersButton" alignment="CENTER" layoutX="25.0" layoutY="320.0" mnemonicParsing="false" onAction="#onChangeToResume" prefHeight="35.0" prefWidth="150.0" styleClass="sidebar-selectedButton" stylesheets="@application.css" text="CV Oluştur" textAlignment="CENTER" textFill="#6b55ed">
                <font>
                   <Font name="Poppins Medium" size="16.0" />
                </font>
@@ -319,28 +315,57 @@
                   <Font name="Poppins Light" size="13.0" />
                </font>
             </Label>
-            <Label layoutX="47.0" layoutY="728.0" stylesheets="@application.css" text="All rights reserved" textAlignment="CENTER" textFill="#6654ebb2">
+            <Label layoutX="47.0" layoutY="728.0" stylesheets="@application.css" text="Tüm Hakları Saklıdır ®" textAlignment="CENTER" textFill="#6654ebb2">
                <font>
                   <Font name="Poppins Light" size="13.0" />
                </font>
             </Label>
-            <Label fx:id="sidebarNameLabel" layoutX="17.0" layoutY="241.0" prefHeight="38.0" prefWidth="178.0" styleClass="sidebar-label-nameHeader" stylesheets="@application.css" text="John Doe">
+            <Label fx:id="sidebarNameLabel" layoutX="16.0" layoutY="240.0" prefHeight="38.0" prefWidth="178.0" styleClass="sidebar-label-nameHeader" stylesheets="@application.css" text="John Doe">
                <font>
                   <Font name="Poppins Regular" size="13.0" />
                </font>
             </Label>
-            <Button alignment="CENTER" layoutX="25.0" layoutY="465.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" styleClass="sidebar-button" stylesheets="@application.css" text="Kullanıcılarım" textAlignment="CENTER" textFill="WHITE">
+            <Button fx:id="createResumeButton" alignment="CENTER" layoutX="25.0" layoutY="370.0" mnemonicParsing="false" onAction="#onChangeToUsers" prefHeight="35.0" prefWidth="150.0" styleClass="sidebar-button" stylesheets="@application.css" text="Kullanıcılarım" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="Poppins Medium" size="16.0" />
                </font>
             </Button>
+            <Button fx:id="darkThemeButton" alignment="CENTER" layoutX="50.0" layoutY="530.0" mnemonicParsing="false" onAction="#onDarkThemeSelected" prefHeight="45.0" prefWidth="45.0" styleClass="sidebar-button" stylesheets="@application.css">
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/dark.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="lightThemeButton" alignment="CENTER" layoutX="105.0" layoutY="530.0" mnemonicParsing="false" onAction="#onLightThemeSelected" prefHeight="45.0" prefWidth="45.0" stylesheets="@application.css">
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/light.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <styleClass>
+                  <String fx:value="sidebar-button" />
+                  <String fx:value="light-themeButton" />
+               </styleClass>
+            </Button>
+            <Region layoutY="510.0" prefHeight="2.0" prefWidth="200.0" styleClass="sidebar-divider" stylesheets="@application.css" />
+            <Label fx:id="sidebarNameLabel1" layoutX="16.0" layoutY="470.0" prefHeight="38.0" prefWidth="178.0" styleClass="sidebar-label-nameHeader" stylesheets="@application.css" text="Uygulama Teması">
+               <font>
+                  <Font name="Poppins Regular" size="13.0" />
+               </font>
+            </Label>
+            <Region layoutY="690.0" prefHeight="2.0" prefWidth="200.0" styleClass="sidebar-divider" stylesheets="@application.css" />
+            <Label fx:id="sidebarNameLabel11" layoutX="16.0" layoutY="650.0" prefHeight="38.0" prefWidth="178.0" styleClass="sidebar-label-nameHeader" stylesheets="@application.css" text="Sürüm Bilgileri">
+               <font>
+                  <Font name="Poppins Regular" size="13.0" />
+               </font>
+            </Label>
             </children>
         </AnchorPane>
-      <Button fx:id="saveButton" layoutX="965.0" layoutY="567.0" mnemonicParsing="false" onAction="#saveFunction" prefHeight="42.0" prefWidth="173.0" styleClass="primaryButton" stylesheets="@application.css" text="Özgeçmiş Oluştur" textFill="WHITE">
-         <font>
-            <Font name="Poppins Medium" size="15.0" />
-         </font>
-      </Button>
       <AnchorPane layoutX="578.0" layoutY="360.0" prefHeight="300.0" prefWidth="221.0">
          <children>
             <Label layoutX="73.0" layoutY="8.0" prefHeight="28.0" prefWidth="63.0" styleClass="title" stylesheets="@application.css" text="Hobiler" textAlignment="CENTER">
@@ -366,7 +391,18 @@
             </Button>
          </children>
       </AnchorPane>
-      <Button fx:id="updateResumeButton" layoutX="965.0" layoutY="624.0" mnemonicParsing="false" onAction="#updateResume" prefHeight="42.0" prefWidth="173.0" styleClass="secondaryButton" stylesheets="@application.css" text="Özgeçmişi Güncelle" textFill="WHITE">
+      <Region layoutX="852.0" layoutY="461.0" prefHeight="251.0" prefWidth="302.0" styleClass="resumeButtonsBGWrapper" stylesheets="@application.css" />
+      <Button fx:id="saveButton" layoutX="920.0" layoutY="480.0" mnemonicParsing="false" onAction="#saveFunction" prefHeight="42.0" prefWidth="173.0" styleClass="primaryButton" stylesheets="@application.css" text="Özgeçmiş Oluştur" textFill="WHITE">
+         <font>
+            <Font name="Poppins Medium" size="15.0" />
+         </font>
+      </Button>
+      <Button fx:id="updateResumeButton" layoutX="920.0" layoutY="530.0" mnemonicParsing="false" onAction="#updateResume" prefHeight="42.0" prefWidth="173.0" styleClass="secondaryButton" stylesheets="@application.css" text="Özgeçmişi Güncelle" textFill="WHITE">
+         <font>
+            <Font name="Poppins Medium" size="15.0" />
+         </font>
+      </Button>
+      <Button fx:id="deleteResumeButton" layoutX="920.0" layoutY="650.0" mnemonicParsing="false" onAction="#deleteResume" prefHeight="42.0" prefWidth="173.0" style="-fx-border-color: red; -fx-text-fill: red;" styleClass="secondaryButton" stylesheets="@application.css" text="Özgeçmişi Sil" textFill="WHITE">
          <font>
             <Font name="Poppins Medium" size="15.0" />
          </font>

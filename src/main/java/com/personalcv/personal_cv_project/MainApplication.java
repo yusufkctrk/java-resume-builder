@@ -6,32 +6,35 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.concurrent.ExecutionException;
 
 public class MainApplication extends Application {
+
     Firebase firebase = null;
+    Stage stage = null;
+    Scene scene = null;
+    ScreenController controller = null;
 
-
-    public MainApplication() throws IOException, ExecutionException, InterruptedException {
+    public MainApplication() throws IOException {
         firebase = new Firebase();
         firebase.initialize();
-
-
     }
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("createResume.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1200, 768);
-        scene.getStylesheets().add("application.css");
-        stage.setTitle("Cv Oluşturucu");
-        stage.setScene(scene);
-        stage.show();
+        try {
+            this.stage = stage;
+            FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("createResumeDarkTheme.fxml"));
+            this.scene = new Scene(fxmlLoader.load(), 1200, 768);
+            this.stage.setTitle("Cv Oluşturucu");
+            this.stage.setScene(this.scene);
 
+            this.stage.show();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
-
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         launch();
     }
 }

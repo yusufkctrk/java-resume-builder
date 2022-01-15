@@ -4,7 +4,12 @@ import com.fasterxml.jackson.databind.JsonNode;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -20,13 +25,17 @@ public class CreateResume {
     Company company;
     Hobbies hobbies;
     JsonNode jsonNode = null;
+    JsonNode documentsJsonNode = null;
+    Boolean isDarkThemeSelected = ApplicationConfigs.getInstance().getDarkThemeSelected();
+    Boolean isResumeScreenSelected = ApplicationConfigs.getInstance().getResumeScreenSelected();
+
     @FXML
     private Label sidebarNameLabel;
 
-    public CreateResume() throws IOException, ExecutionException, InterruptedException {
-        jsonNode = new Firebase().retrieveData();
-        System.out.println(jsonNode);
 
+    public CreateResume() throws IOException, ExecutionException, InterruptedException, Exception {
+        jsonNode = new Firebase().retrieveData();
+        documentsJsonNode = new Firebase().retrieveDocuments();
         try {
             Timer timer = new Timer();
             timer.schedule(new TimerTask() {
@@ -37,20 +46,40 @@ public class CreateResume {
                         public void run() {
                             //your Lable or TextField ID with .setText(“Text To update”)
                             System.out.println("çalışıyor");
+                            System.out.println(jsonNode);
                             sidebarNameLabel.setText((jsonNode.get(Params.personalInformations).get(Params.fullname).asText()));
-                            fillTheResumeField(jsonNode);
+                            try {
+                                if (ApplicationConfigs.getInstance().getResumeScreenSelected()) {
+                                    fillTheResumeField(jsonNode);
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                if (!ApplicationConfigs.getInstance().getResumeScreenSelected()) {
+                                    fillTheUsersField(documentsJsonNode);
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
                     });
                 }
-            }, 1000);
+            }, 100);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 
 
+    @FXML
+    private Button showUserCVButton;
+
+    @FXML
+    private Button myUsersButton;
+
+    @FXML
+    private Button createResumeButton;
     @FXML
     private Button addHobbyButton;
 
@@ -130,11 +159,121 @@ public class CreateResume {
     private ListView<String> skillsListView;
 
     @FXML
+    private ListView<String> usersListView;
+
+    @FXML
     private TextField zipCodeInput;
 
     @FXML
+    private Button darkThemeButton;
+
+    @FXML
+    private Button lightThemeButton;
+    @FXML
+    private Button deleteResumeButton;
+
+    @FXML
+    void onShowUserCV(ActionEvent event) throws IOException, ExecutionException, InterruptedException {
+        try {
+            int itemIndex = usersListView.getSelectionModel().getSelectedIndex();
+            System.out.println(itemIndex);
+            Params.currentPersonID = Params.documentsID.get(itemIndex);
+            Stage stage;
+            Parent root;
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            if (ApplicationConfigs.getInstance().getDarkThemeSelected()) {
+                root = FXMLLoader.load(getClass().getResource("createResumeDarkTheme.fxml"));
+            } else {
+                root = FXMLLoader.load(getClass().getResource("createResume.fxml"));
+            }
+
+            ApplicationConfigs.getInstance().setResumeScreenSelected(true);
+
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IndexOutOfBoundsException err) {
+            System.out.println(err);
+        }
+    }
+
+    @FXML
+    void onChangeToResume(ActionEvent event) throws IOException {
+        Stage stage;
+        Parent root;
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        if (ApplicationConfigs.getInstance().getDarkThemeSelected()) {
+            root = FXMLLoader.load(getClass().getResource("createResumeDarkTheme.fxml"));
+        } else {
+            root = FXMLLoader.load(getClass().getResource("createResume.fxml"));
+        }
+
+        ApplicationConfigs.getInstance().setResumeScreenSelected(true);
+
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    void onChangeToUsers(ActionEvent event) throws IOException {
+        Stage stage;
+        Parent root;
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        if (ApplicationConfigs.getInstance().getDarkThemeSelected()) {
+            root = FXMLLoader.load(getClass().getResource("myUsersDark.fxml"));
+        } else {
+            root = FXMLLoader.load(getClass().getResource("myUsers.fxml"));
+
+        }
+        Scene scene = new Scene(root);
+        ApplicationConfigs.getInstance().setResumeScreenSelected(false);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    void deleteResume(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onDarkThemeSelected(ActionEvent event) throws IOException {
+        Stage stage;
+        Parent root;
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        if (ApplicationConfigs.getInstance().getResumeScreenSelected()) {
+            root = FXMLLoader.load(getClass().getResource("createResumeDarkTheme.fxml"));
+        } else {
+            root = FXMLLoader.load(getClass().getResource("myUsersDark.fxml"));
+        }
+        Scene scene = new Scene(root);
+        ApplicationConfigs.getInstance().setDarkThemeSelected(true);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    void onLightThemeSelected(ActionEvent event) throws IOException {
+        Stage stage;
+        Parent root;
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        if (ApplicationConfigs.getInstance().getResumeScreenSelected()) {
+
+            root = FXMLLoader.load(getClass().getResource("createResume.fxml"));
+        } else {
+            root = FXMLLoader.load(getClass().getResource("myUsers.fxml"));
+        }
+        Scene scene = new Scene(root);
+        ApplicationConfigs.getInstance().setDarkThemeSelected(false);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+
+    @FXML
     void onAddHobby(ActionEvent event) {
-        if (hobbyInput.getText() != "") {
+        if (!Objects.equals(hobbyInput.getText(), "")) {
             hobbiesListView.getItems().add(hobbyInput.getText());
         }
 
@@ -154,7 +293,7 @@ public class CreateResume {
 
     @FXML
     void onAddSkill(ActionEvent event) {
-        if (skillsInput.getText() != "") {
+        if (!Objects.equals(skillsInput.getText(), "")) {
             skillsListView.getItems().add(skillsInput.getText());
         }
 
@@ -175,13 +314,14 @@ public class CreateResume {
 
     @FXML
     void saveFunction(ActionEvent event) throws IOException {
-        education = new Education(elementarySchoolNameInput.getText(),
-                elementarySchoolPeriodInput.getText(),
-                highSchoolNameInput.getText(),
-                highSchoolPeriodInput.getText(),
-                licenseNameInput.getText(),
-                licensePeriodInput.getText());
-        skills = new Skills();
+        education = Education.getInstance();
+        education.setSchoolName_1(elementarySchoolNameInput.getText());
+        education.setSchoolPeriod_1(elementarySchoolPeriodInput.getText());
+        education.setSchoolName_2(highSchoolNameInput.getText());
+        education.setSchoolPeriod_2(highSchoolPeriodInput.getText());
+        education.setSchoolName_3(licenseNameInput.getText());
+        education.setSchoolPeriod_3(licensePeriodInput.getText());
+        skills = Skills.getInstance();
         for (int i = 0; i < skillsListView.getItems().size(); i++) {
             skills.addSkill(skillsListView.getItems().get(i));
         }
@@ -189,30 +329,37 @@ public class CreateResume {
         for (int i = 0; i < hobbiesListView.getItems().size(); i++) {
             hobbies.addHobby(hobbiesListView.getItems().get(i));
         }
-        personalInformation = new PersonalInformation(fullNameInput.getText(),
-                addressInput.getText(),
-                zipCodeInput.getText(),
-                birthdateInput.getText(),
-                mailInput.getText(),
-                phoneNumberInput.getText(),
-                maleRadioButton.isSelected()
-                        ? Params.male
-                        : Params.female);
-        company = new Company(companyNameInput.getText(), jobTitleInput.getText(), experienceInput.getText());
-        Resume resume = new Resume();
+        personalInformation = PersonalInformation.getInstance();
+        personalInformation.setFullname(fullNameInput.getText());
+        personalInformation.setAddress(addressInput.getText());
+        personalInformation.setZipCode(zipCodeInput.getText());
+        personalInformation.setBirthDate(birthdateInput.getText());
+        personalInformation.setMail(mailInput.getText());
+        personalInformation.setPhoneNumber(phoneNumberInput.getText());
+        personalInformation.setGender(maleRadioButton.isSelected()
+                ? Params.male
+                : Params.female);
+
+        company = Company.getInstance();
+        company.setCompanyName(companyNameInput.getText());
+        company.setJobTitle(jobTitleInput.getText());
+        company.setExperience(experienceInput.getText());
+        Resume resume = Resume.getInstance();
         resume.createResume(personalInformation, education, company, skills, hobbies, Params.createNewResume);
 
     }
 
     @FXML
     void updateResume(ActionEvent event) throws IOException {
-        education = new Education(elementarySchoolNameInput.getText(),
-                elementarySchoolPeriodInput.getText(),
-                highSchoolNameInput.getText(),
-                highSchoolPeriodInput.getText(),
-                licenseNameInput.getText(),
-                licensePeriodInput.getText());
-        skills = new Skills();
+        education = Education.getInstance();
+        education.setSchoolName_1(elementarySchoolNameInput.getText());
+        education.setSchoolPeriod_1(elementarySchoolPeriodInput.getText());
+        education.setSchoolName_2(highSchoolNameInput.getText());
+        education.setSchoolPeriod_2(highSchoolPeriodInput.getText());
+        education.setSchoolName_3(licenseNameInput.getText());
+        education.setSchoolPeriod_3(licensePeriodInput.getText());
+
+        skills = Skills.getInstance();
         for (int i = 0; i < skillsListView.getItems().size(); i++) {
             skills.addSkill(skillsListView.getItems().get(i));
         }
@@ -220,17 +367,21 @@ public class CreateResume {
         for (int i = 0; i < hobbiesListView.getItems().size(); i++) {
             hobbies.addHobby(hobbiesListView.getItems().get(i));
         }
-        personalInformation = new PersonalInformation(fullNameInput.getText(),
-                addressInput.getText(),
-                zipCodeInput.getText(),
-                birthdateInput.getText(),
-                mailInput.getText(),
-                phoneNumberInput.getText(),
-                maleRadioButton.isSelected()
-                        ? Params.male
-                        : Params.female);
-        company = new Company(companyNameInput.getText(), jobTitleInput.getText(), experienceInput.getText());
-        Resume resume = new Resume();
+        personalInformation = PersonalInformation.getInstance();
+        personalInformation.setFullname(fullNameInput.getText());
+        personalInformation.setAddress(addressInput.getText());
+        personalInformation.setZipCode(zipCodeInput.getText());
+        personalInformation.setBirthDate(birthdateInput.getText());
+        personalInformation.setMail(mailInput.getText());
+        personalInformation.setPhoneNumber(phoneNumberInput.getText());
+        personalInformation.setGender(maleRadioButton.isSelected()
+                ? Params.male
+                : Params.female);
+        company = Company.getInstance();
+        company.setCompanyName(companyNameInput.getText());
+        company.setExperience(experienceInput.getText());
+        company.setJobTitle(jobTitleInput.getText());
+        Resume resume = Resume.getInstance();
         resume.createResume(personalInformation, education, company, skills, hobbies, Params.updateResume);
 
     }
@@ -250,7 +401,6 @@ public class CreateResume {
     }
 
     void fillTheResumeField(JsonNode json) {
-        System.out.println("bizim " + json);
         fullNameInput.setText(json.get(Params.personalInformations).get(Params.fullname).asText());
         birthdateInput.setText(json.get(Params.personalInformations).get(Params.birthdate).asText());
         femaleRadioButton.setSelected(Objects.equals(json.get(Params.personalInformations).get(Params.gender).asText(), Params.female));
@@ -261,7 +411,6 @@ public class CreateResume {
         addressInput.setText(json.get(Params.personalInformations).get(Params.address).asText());
         companyNameInput.setText(json.get(Params.companyInformations).get(Params.companyName).asText());
         jobTitleInput.setText(json.get(Params.companyInformations).get(Params.jobTitle).asText());
-        System.out.println(json.get(Params.companyInformations).get(Params.experience));
         experienceInput.setText(json.get(Params.companyInformations).get(Params.experience).asText());
         try {
             json.get(Params.skillsInformation).get(Params.skills).forEach((item) -> {
@@ -284,6 +433,24 @@ public class CreateResume {
         licenseNameInput.setText(json.get(Params.educationInformations).get(Params.license).get(Params.schoolName).asText());
         licensePeriodInput.setText(json.get(Params.educationInformations).get(Params.license).get(Params.schoolPeriod).asText());
 
+    }
+
+    void fillTheUsersField(JsonNode jsonNode) {
+        String fullname = "";
+        String phoneNumber = "";
+        String companyName = "";
+        if (usersListView != null) {
+            try {
+                for (int i = 0; i < Params.documentsID.size(); i++) {
+                    fullname = jsonNode.get(Params.documentsID.get(i)).get(Params.personalInformations).get(Params.fullname).asText();
+                    phoneNumber = jsonNode.get(Params.documentsID.get(i)).get(Params.personalInformations).get(Params.phoneNumber).asText();
+                    companyName = jsonNode.get(Params.documentsID.get(i)).get(Params.companyInformations).get(Params.companyName).asText();
+                    usersListView.getItems().add(fullname + "                 " + companyName + "                       " + phoneNumber);
+                }
+            } catch (NullPointerException e) {
+                System.out.println("An error occured while retrieving Users List. The error is :" + e);
+            }
+        }
     }
 }
 

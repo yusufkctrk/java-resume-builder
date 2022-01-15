@@ -17,6 +17,15 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public class Firebase {
+    private static Firebase firebase;
+
+    public static Firebase getInstance() throws IOException {
+        if (firebase == null) {
+            firebase = new Firebase();
+        }
+        return firebase;
+    }
+
     public Firebase() throws IOException {
 
     }
@@ -63,24 +72,35 @@ public class Firebase {
         Map<String, Object> docsDataFields = new HashMap<>();
         ApiFuture<QuerySnapshot> future = db.collection("resumes").get();
         List<QueryDocumentSnapshot> documents = future.get().getDocuments();
-
- /*       Skills skills = new Skills();
-        docsDataFields.forEach((key, value) -> {
-            System.out.println(key + ": " + value);
-            skills.setSkills((ArrayList<String>) ((Map) ((Map) docsDataFields.get(key)).get("skillsInformation")).get("skills"));
-
-        });
-        skills.getSkills().forEach(System.out::println);
-*/
         final String[] docKey = {null};
         Map<Resume, Object> resumes = new HashMap<>();
+        System.out.println("resumes ");
         for (QueryDocumentSnapshot document : documents) {
             docsDataFields.put(document.getId(), document.getData());
         }
         docsDataFields.forEach((key, value) -> docKey[0] = key);
-        Params.currentPersonID = docKey[0];
-        return new Utility().mapObjectToJson((Map) docsDataFields.get(docKey[0]));
-
-
+        if (!Params.isDocumentIDInit) {
+            Params.currentPersonID = docKey[0];
+            Params.isDocumentIDInit = true;
+        }
+        Params.documentsID.clear();
+        docsDataFields.forEach((key, value) -> {
+            Params.documentsID.add(key);
+        });
+        return new Utility().mapObjectToJson((Map) docsDataFields.get(Params.currentPersonID));
     }
+
+    public JsonNode retrieveDocuments() throws ExecutionException, InterruptedException, IOException {
+        Firestore db = FirestoreClient.getFirestore();
+        Map<String, Object> docsDataFields = new HashMap<>();
+        ApiFuture<QuerySnapshot> future = db.collection("resumes").get();
+        List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+
+        for (QueryDocumentSnapshot document : documents) {
+            docsDataFields.put(document.getId(), document.getData());
+        }
+        return new Utility().mapObjectToJson((Map) docsDataFields);
+    }
+
+
 }

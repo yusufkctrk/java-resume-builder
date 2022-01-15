@@ -1,9 +1,22 @@
 package com.personalcv.personal_cv_project;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Skills {
+    private static Skills skillsInstance;
+
+    public static Skills getInstance() throws IOException {
+        if (skillsInstance == null) {
+            skillsInstance = new Skills();
+
+        }
+        return skillsInstance;
+    }
+
+
+
     private ArrayList<String> skills = new ArrayList<>();
 
     public ArrayList<String> getSkills() {

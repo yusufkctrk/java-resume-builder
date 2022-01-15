@@ -1,6 +1,15 @@
 package com.personalcv.personal_cv_project;
 
 public class Education {
+    private static Education educationInstance;
+
+    public static Education getInstance() {
+        if (educationInstance == null) {
+            educationInstance = new Education();
+        }
+        return educationInstance;
+    }
+
     private String schoolName_1 = "";
     private String schoolPeriod_1 = "";
     private String schoolName_2 = "";
@@ -68,24 +77,5 @@ public class Education {
         this.schoolPeriod_3 = schoolPeriod_3;
     }
 
-    public Education(String schoolName_1, String schoolPeriod_1, String schoolName_2, String schoolPeriod_2, String schoolName_3, String schoolPeriod_3) {
-        this.schoolName_1 = schoolName_1;
-        this.schoolPeriod_1 = schoolPeriod_1;
-        this.schoolName_2 = schoolName_2;
-        this.schoolPeriod_2 = schoolPeriod_2;
-        this.schoolName_3 = schoolName_3;
-        this.schoolPeriod_3 = schoolPeriod_3;
-    }
 
-    public Education(String schoolName_1, String schoolPeriod_1, String schoolName_2, String schoolPeriod_2) {
-        this.schoolName_1 = schoolName_1;
-        this.schoolPeriod_1 = schoolPeriod_1;
-        this.schoolName_2 = schoolName_2;
-        this.schoolPeriod_2 = schoolPeriod_2;
-    }
-
-    public Education(String schoolName_1, String schoolPeriod_1) {
-        this.schoolName_1 = schoolName_1;
-        this.schoolPeriod_1 = schoolPeriod_1;
-    }
 }

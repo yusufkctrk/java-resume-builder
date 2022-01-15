@@ -1,5 +1,7 @@
 package com.personalcv.personal_cv_project;
 
+import java.util.ArrayList;
+
 public class Params {
     public static String currentPersonID = "";
 
@@ -31,5 +33,9 @@ public class Params {
 
     public static String updateResume = "updateResume";
     public static String createNewResume = "createNewResume";
+
+    public static ArrayList<String> documentsID = new ArrayList<>();
+    public static Boolean isDocumentIDInit = false;
+
 
 }

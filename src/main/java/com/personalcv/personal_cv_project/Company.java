@@ -1,6 +1,18 @@
 package com.personalcv.personal_cv_project;
 
+import java.io.IOException;
+
 public class Company {
+    private static Company companyInstance;
+
+    public static Company getInstance() throws IOException {
+        if (companyInstance == null) {
+            companyInstance = new Company();
+
+        }
+        return companyInstance;
+    }
+
     private String companyName = "";
     private String jobTitle = "";
     private String experience = "";
@@ -38,9 +50,5 @@ public class Company {
         this.experience = experience;
     }
 
-    public Company(String companyName, String jobTitle, String experience) {
-        this.companyName = companyName;
-        this.jobTitle = jobTitle;
-        this.experience = experience;
-    }
+
 }
