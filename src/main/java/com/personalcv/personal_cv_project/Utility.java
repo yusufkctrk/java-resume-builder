@@ -10,10 +10,6 @@ import java.util.Map;
 
 public class Utility {
     public JsonNode mapObjectToJson(Map mapObject) throws IOException {
-
-
-
-
         ObjectMapper objectMapper = new ObjectMapper();
         String json = null;
         try {

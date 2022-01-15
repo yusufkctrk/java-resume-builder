@@ -33,7 +33,7 @@ public class CreateResume {
     private Label sidebarNameLabel;
 
 
-    public CreateResume() throws IOException, ExecutionException, InterruptedException, Exception {
+    public CreateResume() throws IOException, ExecutionException, InterruptedException {
         jsonNode = new Firebase().retrieveData();
         documentsJsonNode = new Firebase().retrieveDocuments();
         try {
@@ -44,7 +44,6 @@ public class CreateResume {
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
-                            //your Lable or TextField ID with .setText(“Text To update”)
                             System.out.println("çalışıyor");
                             System.out.println(jsonNode);
                             sidebarNameLabel.setText((jsonNode.get(Params.personalInformations).get(Params.fullname).asText()));
@@ -216,7 +215,8 @@ public class CreateResume {
     }
 
     @FXML
-    void onChangeToUsers(ActionEvent event) throws IOException {
+    void onChangeToUsers(ActionEvent event) throws IOException, ExecutionException, InterruptedException {
+
         Stage stage;
         Parent root;
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -233,8 +233,22 @@ public class CreateResume {
     }
 
     @FXML
-    void deleteResume(ActionEvent event) {
-
+    void deleteResume(ActionEvent event) throws IOException, ExecutionException, InterruptedException {
+        Resume resume = Resume.getInstance();
+        resume.deleteResume();
+        Stage stage;
+        Parent root;
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        if (ApplicationConfigs.getInstance().getDarkThemeSelected()) {
+            root = FXMLLoader.load(getClass().getResource("createResumeDarkTheme.fxml"));
+        } else {
+            root = FXMLLoader.load(getClass().getResource("createResume.fxml"));
+        }
+        Scene scene = new Scene(root);
+        ApplicationConfigs.getInstance().setDarkThemeSelected(true);
+        stage.setScene(scene);
+        stage.show();
+        clearFields();
     }
 
     @FXML
@@ -321,7 +335,7 @@ public class CreateResume {
         education.setSchoolPeriod_2(highSchoolPeriodInput.getText());
         education.setSchoolName_3(licenseNameInput.getText());
         education.setSchoolPeriod_3(licensePeriodInput.getText());
-        skills = Skills.getInstance();
+        skills = new Skills();
         for (int i = 0; i < skillsListView.getItems().size(); i++) {
             skills.addSkill(skillsListView.getItems().get(i));
         }
@@ -345,7 +359,7 @@ public class CreateResume {
         company.setJobTitle(jobTitleInput.getText());
         company.setExperience(experienceInput.getText());
         Resume resume = Resume.getInstance();
-        resume.createResume(personalInformation, education, company, skills, hobbies, Params.createNewResume);
+        resume.resumeProcess(personalInformation, education, company, skills, hobbies, Params.createNewResume);
 
     }
 
@@ -382,7 +396,7 @@ public class CreateResume {
         company.setExperience(experienceInput.getText());
         company.setJobTitle(jobTitleInput.getText());
         Resume resume = Resume.getInstance();
-        resume.createResume(personalInformation, education, company, skills, hobbies, Params.updateResume);
+        resume.resumeProcess(personalInformation, education, company, skills, hobbies, Params.updateResume);
 
     }
 
@@ -413,6 +427,7 @@ public class CreateResume {
         jobTitleInput.setText(json.get(Params.companyInformations).get(Params.jobTitle).asText());
         experienceInput.setText(json.get(Params.companyInformations).get(Params.experience).asText());
         try {
+            skillsListView.getItems().clear();
             json.get(Params.skillsInformation).get(Params.skills).forEach((item) -> {
                 skillsListView.getItems().add(item.asText());
             });
@@ -420,6 +435,7 @@ public class CreateResume {
             System.out.println("An error occured while retrieving Skills List. The error is :" + e);
         }
         try {
+            hobbiesListView.getItems().clear();
             json.get(Params.hobbiesInformation).get(Params.hobbies).forEach((item) -> {
                 hobbiesListView.getItems().add(item.asText());
             });
@@ -441,6 +457,7 @@ public class CreateResume {
         String companyName = "";
         if (usersListView != null) {
             try {
+                usersListView.getItems().clear();
                 for (int i = 0; i < Params.documentsID.size(); i++) {
                     fullname = jsonNode.get(Params.documentsID.get(i)).get(Params.personalInformations).get(Params.fullname).asText();
                     phoneNumber = jsonNode.get(Params.documentsID.get(i)).get(Params.personalInformations).get(Params.phoneNumber).asText();
@@ -451,6 +468,29 @@ public class CreateResume {
                 System.out.println("An error occured while retrieving Users List. The error is :" + e);
             }
         }
+    }
+
+    void clearFields() {
+        fullNameInput.clear();
+        birthdateInput.clear();
+        femaleRadioButton.setSelected(false);
+        maleRadioButton.setSelected(false);
+        mailInput.clear();
+        phoneNumberInput.clear();
+        zipCodeInput.clear();
+        addressInput.clear();
+        companyNameInput.clear();
+        jobTitleInput.clear();
+        experienceInput.clear();
+        skillsListView.getItems().clear();
+        hobbiesListView.getItems().clear();
+        elementarySchoolNameInput.clear();
+        elementarySchoolPeriodInput.clear();
+        highSchoolNameInput.clear();
+        highSchoolPeriodInput.clear();
+        licenseNameInput.clear();
+        licensePeriodInput.clear();
+
     }
 }
 

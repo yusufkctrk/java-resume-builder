@@ -33,6 +33,7 @@ public class Params {
 
     public static String updateResume = "updateResume";
     public static String createNewResume = "createNewResume";
+    public static String deleteResume = "deleteResume";
 
     public static ArrayList<String> documentsID = new ArrayList<>();
     public static Boolean isDocumentIDInit = false;

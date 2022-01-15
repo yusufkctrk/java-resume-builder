@@ -1,5 +1,6 @@
 package com.personalcv.personal_cv_project;
 
+import com.personalcv.personal_cv_project.TestClasses.UtilityTest;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,7 +13,7 @@ public class MainApplication extends Application {
     Firebase firebase = null;
     Stage stage = null;
     Scene scene = null;
-    ScreenController controller = null;
+
 
     public MainApplication() throws IOException {
         firebase = new Firebase();
@@ -35,6 +36,7 @@ public class MainApplication extends Application {
     }
 
     public static void main(String[] args) throws Exception {
-        launch();
+        //launch();
+        UtilityTest companyTest = new UtilityTest();
     }
 }

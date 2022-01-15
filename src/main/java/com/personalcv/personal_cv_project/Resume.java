@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ExecutionException;
 
 public class Resume {
 
@@ -19,18 +20,16 @@ public class Resume {
         return resume;
     }
 
-    public void createResume(PersonalInformation personalInformation, Education education, Company company, Skills skills, Hobbies hobbies, String processType) throws IOException {
+    public void resumeProcess(PersonalInformation personalInformation, Education education, Company company, Skills skills, Hobbies hobbies, String processType) throws IOException {
         Firebase firebase = Firebase.getInstance();
         Map<String, Object> resumeMap = new HashMap<>();
-
-
-
         Map<String, Object> personalMap = new HashMap<>();
         Map<String, Object> educationMap = new HashMap<>();
         Map<String, Object> elementarySchoolMap = new HashMap<>();
         Map<String, Object> highSchoolMap = new HashMap<>();
         Map<String, Object> licenseMap = new HashMap<>();
         Map<String, Object> companyMap = new HashMap<>();
+
         Map<String, Object> skillsMap = new HashMap<>();
         Map<String, Object> hobbiesMap = new HashMap<>();
 
@@ -72,7 +71,11 @@ public class Resume {
             firebase.createResume(resumeMap);
         else if (Objects.equals(processType, Params.updateResume)) {
             firebase.updateData(resumeMap, Params.currentPersonID);
-            System.out.println("çalıştı " + resumeMap);
         }
+    }
+
+    public void deleteResume() throws IOException, ExecutionException, InterruptedException {
+        Firebase firebase = Firebase.getInstance();
+        firebase.deleteData();
     }
 }

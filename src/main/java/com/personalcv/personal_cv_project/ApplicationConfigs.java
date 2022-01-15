@@ -5,6 +5,7 @@ import java.io.IOException;
 public class ApplicationConfigs {
     Boolean isDarkThemeSelected = true;
     Boolean isResumeScreenSelected = true;
+
     public Boolean getDarkThemeSelected() {
         return isDarkThemeSelected;
     }
@@ -21,7 +22,6 @@ public class ApplicationConfigs {
         isResumeScreenSelected = resumeScreenSelected;
     }
 
-
     private static ApplicationConfigs applicationConfigs;
 
     public static ApplicationConfigs getInstance() throws IOException {
@@ -32,4 +32,11 @@ public class ApplicationConfigs {
         return applicationConfigs;
     }
 
+    @Override
+    public String toString() {
+        return "ApplicationConfigs{" +
+                "isDarkThemeSelected=" + isDarkThemeSelected +
+                ", isResumeScreenSelected=" + isResumeScreenSelected +
+                '}';
+    }
 }

@@ -52,12 +52,15 @@ public class Firebase {
         Firestore db = FirestoreClient.getFirestore();
         DocumentReference docRef = db.collection("resumes").document(documentName);
         ApiFuture<WriteResult> result = docRef.set(data);
+
+
     }
 
     public void createResume(Map<String, Object> dataMap) {
         Firestore db = FirestoreClient.getFirestore();
         DocumentReference docRef = db.collection("resumes").document();
         ApiFuture<WriteResult> result = docRef.create(dataMap);
+
     }
 
     public void updateData(Map<String, Object> dataMap, String resumeID) {
@@ -65,6 +68,17 @@ public class Firebase {
         Firestore db = FirestoreClient.getFirestore();
         DocumentReference docRef = db.collection("resumes").document(resumeID);
         ApiFuture<WriteResult> result = docRef.set(dataMap);
+
+    }
+
+    public void deleteData() throws IOException, ExecutionException, InterruptedException {
+        Firestore db = FirestoreClient.getFirestore();
+        Params.documentsID.remove(Params.currentPersonID);
+        db.collection("resumes").document(Params.currentPersonID).delete();
+        if (Params.documentsID.size() > 0) {
+            Params.currentPersonID = Params.documentsID.get(Params.documentsID.size() - 1);
+        }
+        retrieveData();
     }
 
     public JsonNode retrieveData() throws ExecutionException, InterruptedException, IOException {
@@ -95,11 +109,10 @@ public class Firebase {
         Map<String, Object> docsDataFields = new HashMap<>();
         ApiFuture<QuerySnapshot> future = db.collection("resumes").get();
         List<QueryDocumentSnapshot> documents = future.get().getDocuments();
-
         for (QueryDocumentSnapshot document : documents) {
             docsDataFields.put(document.getId(), document.getData());
         }
-        return new Utility().mapObjectToJson((Map) docsDataFields);
+        return new Utility().mapObjectToJson(docsDataFields);
     }
 
 
